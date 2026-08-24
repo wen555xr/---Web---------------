@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}控制台{% endblock %}
+{% block content %}
+<h1>控制台</h1>
+<p class="muted">运行模式：{{ '模拟模式（不连真实设备）' if MOCK_MODE else '真实模式（SSH 连接设备）' }}</p>
+
+<div class="cards">
+  <section class="card">
+    <h2>💾 一键备份所有交换机配置</h2>
+    <p>备份所有启用设备的 running-config 到 backups/ 目录。</p>
+    <button class="btn primary" onclick="startBackup()">开始备份</button>
+  </section>
+
+  <section class="card">
+    <h2>🔀 批量创建 VLAN</h2>
+    <form onsubmit="return startVlans(event)">
+      <label>目标设备
+        <select id="vlan-device">
+          {% for d in devices %}<option value="{{ d.id }}">{{ d.name }} ({{ d.ip_address }})</option>{% endfor %}
+        </select>
+      </label>
+      <label>起始 VLAN <input id="vlan-start" type="number" value="100" min="1" max="4094"></label>
+      <label>结束 VLAN <input id="vlan-end" type="number" value="149" min="1" max="4094"></label>
+      <button class="btn primary" type="submit">创建 VLAN</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>🛡️ 端口安全策略扫描</h2>
+    <p>扫描所有设备接口的端口安全启用情况。</p>
+    <button class="btn primary" onclick="startPortSecurity()">开始扫描</button>
+  </section>
+</div>
+
+<section class="result-panel">
+  <h2>执行结果</h2>
+  <div id="result" class="result">
+    <p class="muted">点击上方按钮开始执行任务，结果将显示在这里。</p>
+  </div>
+</section>
+{% endblock %}

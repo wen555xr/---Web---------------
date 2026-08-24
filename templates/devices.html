@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}设备管理{% endblock %}
+{% block content %}
+<h1>设备管理</h1>
+
+<section class="card">
+  <h2>新增设备</h2>
+  <form method="post" action="{{ url_for('device_create') }}" class="device-form">
+    <input name="name" placeholder="设备名 (如 SW-01)" required>
+    <input name="ip_address" placeholder="管理 IP (如 192.168.1.1)" required>
+    <input name="username" placeholder="用户名" value="admin">
+    <input name="password" placeholder="密码" value="Admin@123">
+    <select name="device_type">
+      <option value="huawei_vrp">华为 VRP</option>
+      <option value="cisco_ios">Cisco IOS</option>
+    </select>
+    <label class="checkbox"><input type="checkbox" name="enabled" checked> 启用</label>
+    <button class="btn primary" type="submit">添加</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>设备列表</h2>
+  <table>
+    <thead>
+      <tr><th>名称</th><th>IP</th><th>用户名</th><th>类型</th><th>状态</th><th>操作</th></tr>
+    </thead>
+    <tbody>
+    {% for d in devices %}
+    <tr>
+      <td>{{ d.name }}</td>
+      <td>{{ d.ip_address }}</td>
+      <td>{{ d.username }}</td>
+      <td>{{ d.device_type }}</td>
+      <td>{{ '启用' if d.enabled else '停用' }}</td>
+      <td>
+        <details>
+          <summary>编辑</summary>
+          <form method="post" action="{{ url_for('device_update', device_id=d.id) }}" class="device-form inline">
+            <input name="name" value="{{ d.name }}" required>
+            <input name="ip_address" value="{{ d.ip_address }}" required>
+            <input name="username" value="{{ d.username }}">
+            <input name="password" placeholder="留空则不修改密码">
+            <select name="device_type">
+              <option value="huawei_vrp" {{ 'selected' if d.device_type == 'huawei_vrp' }}>华为 VRP</option>
+              <option value="cisco_ios" {{ 'selected' if d.device_type == 'cisco_ios' }}>Cisco IOS</option>
+            </select>
+            <label class="checkbox"><input type="checkbox" name="enabled" {{ 'checked' if d.enabled }}> 启用</label>
+            <button class="btn" type="submit">保存</button>
+          </form>
+        </details>
+        <form method="post" action="{{ url_for('device_delete', device_id=d.id) }}"
+              onsubmit="return confirm('确认删除该设备？')">
+          <button class="btn danger" type="submit">删除</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" class="muted">暂无设备，请先添加。</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

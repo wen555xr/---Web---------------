@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}任务历史{% endblock %}
+{% block content %}
+<h1>任务历史</h1>
+<table>
+  <thead>
+    <tr><th>ID</th><th>任务</th><th>状态</th><th>摘要</th><th>创建时间</th><th>完成时间</th></tr>
+  </thead>
+  <tbody>
+  {% for t in tasks %}
+  <tr>
+    <td>{{ t.id }}</td>
+    <td>{{ t.task_name | task_label }}</td>
+    <td><span class="status status-{{ t.status }}">{{ t.status | status_label }}</span></td>
+    <td>{{ t.summary }}</td>
+    <td>{{ t.created_at.strftime('%Y-%m-%d %H:%M:%S') if t.created_at }}</td>
+    <td>{{ t.finished_at.strftime('%Y-%m-%d %H:%M:%S') if t.finished_at }}</td>
+  </tr>
+  {% else %}
+  <tr><td colspan="6" class="muted">暂无任务记录。</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
