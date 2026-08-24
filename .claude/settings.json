@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git reset *)",
+      "Bash(git push *)",
+      "Bash(git check-ignore *)",
+      "Bash(env)",
+      "Bash(git ls-remote *)"
+    ]
+  }
+}
