@@ -1,23 +1,23 @@
-{% extends "base.html" %}
-{% block title %}任务历史{% endblock %}
-{% block content %}
+{% extends "base.html" %}  <!-- 继承基础模板 -->
+{% block title %}任务历史{% endblock %}  <!-- 覆盖标题为“任务历史” -->
+{% block content %}  <!-- 填充内容块 -->
 <h1>任务历史</h1>
-<table>
-  <thead>
-    <tr><th>ID</th><th>任务</th><th>状态</th><th>摘要</th><th>创建时间</th><th>完成时间</th></tr>
+<table>  <!-- 任务记录表 -->
+  <thead>  <!-- 表头 -->
+    <tr><th>ID</th><th>任务</th><th>状态</th><th>摘要</th><th>创建时间</th><th>完成时间</th></tr>  <!-- 列标题 -->
   </thead>
-  <tbody>
-  {% for t in tasks %}
-  <tr>
-    <td>{{ t.id }}</td>
-    <td>{{ t.task_name | task_label }}</td>
-    <td><span class="status status-{{ t.status }}">{{ t.status | status_label }}</span></td>
-    <td>{{ t.summary }}</td>
-    <td>{{ t.created_at.strftime('%Y-%m-%d %H:%M:%S') if t.created_at }}</td>
-    <td>{{ t.finished_at.strftime('%Y-%m-%d %H:%M:%S') if t.finished_at }}</td>
+  <tbody>  <!-- 表体 -->
+  {% for t in tasks %}  <!-- 遍历最近 50 条任务 -->
+  <tr>  <!-- 一行一条任务 -->
+    <td>{{ t.id }}</td>  <!-- 任务 ID -->
+    <td>{{ t.task_name | task_label }}</td>  <!-- 用自定义过滤器把英文任务名转中文 -->
+    <td><span class="status status-{{ t.status }}">{{ t.status | status_label }}</span></td>  <!-- 状态标签：class 着色 + 中文显示 -->
+    <td>{{ t.summary }}</td>  <!-- 摘要 -->
+    <td>{{ t.created_at.strftime('%Y-%m-%d %H:%M:%S') if t.created_at }}</td>  <!-- 创建时间格式化，为空则显示空 -->
+    <td>{{ t.finished_at.strftime('%Y-%m-%d %H:%M:%S') if t.finished_at }}</td>  <!-- 完成时间格式化，为空则显示空 -->
   </tr>
-  {% else %}
-  <tr><td colspan="6" class="muted">暂无任务记录。</td></tr>
+  {% else %}  <!-- 无记录空态 -->
+  <tr><td colspan="6" class="muted">暂无任务记录。</td></tr>  <!-- 空态提示，横跨 6 列 -->
   {% endfor %}
   </tbody>
 </table>

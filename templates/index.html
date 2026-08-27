@@ -1,41 +1,41 @@
-{% extends "base.html" %}
-{% block title %}控制台{% endblock %}
-{% block content %}
+{% extends "base.html" %}  <!-- 继承基础模板 -->
+{% block title %}控制台{% endblock %}  <!-- 覆盖标题为“控制台” -->
+{% block content %}  <!-- 填充内容块 -->
 <h1>控制台</h1>
-<p class="muted">运行模式：{{ '模拟模式（不连真实设备）' if MOCK_MODE else '真实模式（SSH 连接设备）' }}</p>
+<p class="muted">运行模式：{{ '模拟模式（不连真实设备）' if MOCK_MODE else '真实模式（SSH 连接设备）' }}</p>  <!-- 显示当前运行模式 -->
 
-<div class="cards">
-  <section class="card">
-    <h2>💾 一键备份所有交换机配置</h2>
-    <p>备份所有启用设备的 running-config 到 backups/ 目录。</p>
-    <button class="btn primary" onclick="startBackup()">开始备份</button>
+<div class="cards">  <!-- 卡片容器（响应式网格） -->
+  <section class="card">  <!-- 备份卡片 -->
+    <h2>💾 一键备份所有交换机配置</h2>  <!-- 卡片标题 -->
+    <p>备份所有启用设备的 running-config 到 backups/ 目录。</p>  <!-- 功能说明 -->
+    <button class="btn primary" onclick="startBackup()">开始备份</button>  <!-- 点击调用 startBackup() -->
   </section>
 
-  <section class="card">
-    <h2>🔀 批量创建 VLAN</h2>
-    <form onsubmit="return startVlans(event)">
-      <label>目标设备
-        <select id="vlan-device">
-          {% for d in devices %}<option value="{{ d.id }}">{{ d.name }} ({{ d.ip_address }})</option>{% endfor %}
+  <section class="card">  <!-- 建 VLAN 卡片 -->
+    <h2>🔀 批量创建 VLAN</h2>  <!-- 卡片标题 -->
+    <form onsubmit="return startVlans(event)">  <!-- 提交时交给 JS 处理并阻止默认提交 -->
+      <label>目标设备  <!-- 目标设备标签 -->
+        <select id="vlan-device">  <!-- 目标设备下拉框 -->
+          {% for d in devices %}<option value="{{ d.id }}">{{ d.name }} ({{ d.ip_address }})</option>{% endfor %}  <!-- 循环生成设备选项 -->
         </select>
       </label>
-      <label>起始 VLAN <input id="vlan-start" type="number" value="100" min="1" max="4094"></label>
-      <label>结束 VLAN <input id="vlan-end" type="number" value="149" min="1" max="4094"></label>
-      <button class="btn primary" type="submit">创建 VLAN</button>
+      <label>起始 VLAN <input id="vlan-start" type="number" value="100" min="1" max="4094"></label>  <!-- 起始 VLAN 输入框 -->
+      <label>结束 VLAN <input id="vlan-end" type="number" value="149" min="1" max="4094"></label>  <!-- 结束 VLAN 输入框 -->
+      <button class="btn primary" type="submit">创建 VLAN</button>  <!-- 提交按钮 -->
     </form>
   </section>
 
-  <section class="card">
-    <h2>🛡️ 端口安全策略扫描</h2>
-    <p>扫描所有设备接口的端口安全启用情况。</p>
-    <button class="btn primary" onclick="startPortSecurity()">开始扫描</button>
+  <section class="card">  <!-- 端口安全扫描卡片 -->
+    <h2>🛡️ 端口安全策略扫描</h2>  <!-- 卡片标题 -->
+    <p>扫描所有设备接口的端口安全启用情况。</p>  <!-- 功能说明 -->
+    <button class="btn primary" onclick="startPortSecurity()">开始扫描</button>  <!-- 点击调用 startPortSecurity() -->
   </section>
 </div>
 
-<section class="result-panel">
-  <h2>执行结果</h2>
-  <div id="result" class="result">
-    <p class="muted">点击上方按钮开始执行任务，结果将显示在这里。</p>
+<section class="result-panel">  <!-- 结果展示区 -->
+  <h2>执行结果</h2>  <!-- 区域标题 -->
+  <div id="result" class="result">  <!-- 结果容器，JS 会替换其内容 -->
+    <p class="muted">点击上方按钮开始执行任务，结果将显示在这里。</p>  <!-- 初始占位文字 -->
   </div>
 </section>
 {% endblock %}

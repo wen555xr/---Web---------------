@@ -1,121 +1,121 @@
-:root {
-  --bg: #f5f6f8;
-  --card: #ffffff;
-  --border: #e2e4e9;
-  --text: #1f2329;
-  --muted: #7a828c;
-  --primary: #2f6fed;
-  --danger: #d64545;
-  --ok: #1a7f37;
-  --warn: #b26a00;
+:root {  /* 定义全局 CSS 变量（设计令牌） */
+  --bg: #f5f6f8;        /* 页面背景色：浅灰 */
+  --card: #ffffff;      /* 卡片背景色：白 */
+  --border: #e2e4e9;    /* 边框色：浅灰 */
+  --text: #1f2329;      /* 主文字色：深灰 */
+  --muted: #7a828c;     /* 次要文字色：灰 */
+  --primary: #2f6fed;   /* 主色：蓝 */
+  --danger: #d64545;    /* 危险色：红 */
+  --ok: #1a7f37;        /* 成功色：绿 */
+  --warn: #b26a00;      /* 警告色：橙 */
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; }  /* 所有元素宽高含内边距与边框，方便布局 */
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
-  background: var(--bg);
-  color: var(--text);
+body {  /* 全局 body 样式 */
+  margin: 0;  /* 去掉默认外边距 */
+  font-family: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;  /* 系统字体栈，中文落到微软雅黑 */
+  background: var(--bg);  /* 页面背景 */
+  color: var(--text);  /* 文字颜色 */
 }
 
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  height: 56px;
-  background: var(--card);
-  border-bottom: 1px solid var(--border);
+.topbar {  /* 顶部导航条 */
+  display: flex;  /* 弹性布局 */
+  align-items: center;  /* 垂直居中 */
+  justify-content: space-between;  /* 两端对齐（品牌左、导航右） */
+  padding: 0 24px;  /* 左右留白 24px */
+  height: 56px;  /* 高度 56px */
+  background: var(--card);  /* 白底 */
+  border-bottom: 1px solid var(--border);  /* 下边框 */
 }
-.brand { font-weight: 600; }
-nav a {
-  margin-left: 16px;
-  text-decoration: none;
-  color: var(--muted);
-  padding: 6px 10px;
-  border-radius: 6px;
+.brand { font-weight: 600; }  /* 品牌名加粗 */
+nav a {  /* 导航链接 */
+  margin-left: 16px;  /* 链接之间间距 */
+  text-decoration: none;  /* 去掉下划线 */
+  color: var(--muted);  /* 灰色文字 */
+  padding: 6px 10px;  /* 内边距 */
+  border-radius: 6px;  /* 圆角 */
 }
-nav a.active { color: var(--primary); background: #eaf1fe; }
+nav a.active { color: var(--primary); background: #eaf1fe; }  /* 当前页高亮：蓝字浅蓝底 */
 
-.container { max-width: 960px; margin: 24px auto; padding: 0 16px; }
-h1 { font-size: 22px; }
-h2 { font-size: 16px; margin-top: 0; }
-.muted { color: var(--muted); }
-.error { color: var(--danger); }
+.container { max-width: 960px; margin: 24px auto; padding: 0 16px; }  /* 内容区居中、限宽、留白 */
+h1 { font-size: 22px; }  /* 一级标题字号 */
+h2 { font-size: 16px; margin-top: 0; }  /* 二级标题字号、去掉上边距 */
+.muted { color: var(--muted); }  /* 次要文字工具类 */
+.error { color: var(--danger); }  /* 错误文字工具类 */
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
+.cards {  /* 卡片网格容器 */
+  display: grid;  /* 网格布局 */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));  /* 自动适配列数，每列至少 260px */
+  gap: 16px;  /* 卡片间距 */
 }
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 18px;
+.card {  /* 单张卡片 */
+  background: var(--card);  /* 白底 */
+  border: 1px solid var(--border);  /* 边框 */
+  border-radius: 10px;  /* 圆角 */
+  padding: 18px;  /* 内边距 */
 }
-.card form { display: flex; flex-direction: column; gap: 8px; }
-.card label { font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
-.card input, .card select {
-  padding: 7px 10px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 14px;
+.card form { display: flex; flex-direction: column; gap: 8px; }  /* 卡内表单纵向排列，间距 8px */
+.card label { font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }  /* 标签小字灰色，纵向排列 */
+.card input, .card select {  /* 卡内输入框与下拉框 */
+  padding: 7px 10px;  /* 内边距 */
+  border: 1px solid var(--border);  /* 边框 */
+  border-radius: 6px;  /* 圆角 */
+  font-size: 14px;  /* 字号 */
 }
 
-.btn {
-  border: none;
-  border-radius: 6px;
-  padding: 8px 14px;
-  cursor: pointer;
-  font-size: 14px;
-  background: #eceef1;
-  color: var(--text);
+.btn {  /* 通用按钮 */
+  border: none;  /* 去边框 */
+  border-radius: 6px;  /* 圆角 */
+  padding: 8px 14px;  /* 内边距 */
+  cursor: pointer;  /* 手型光标 */
+  font-size: 14px;  /* 字号 */
+  background: #eceef1;  /* 默认浅灰底 */
+  color: var(--text);  /* 文字色 */
 }
-.btn.primary { background: var(--primary); color: #fff; }
-.btn.danger { background: var(--danger); color: #fff; }
+.btn.primary { background: var(--primary); color: #fff; }  /* 主按钮：蓝底白字 */
+.btn.danger { background: var(--danger); color: #fff; }  /* 危险按钮：红底白字 */
 
-.result-panel { margin-top: 24px; }
-.result {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 16px;
-  min-height: 120px;
+.result-panel { margin-top: 24px; }  /* 结果区上边距 */
+.result {  /* 结果面板 */
+  background: var(--card);  /* 白底 */
+  border: 1px solid var(--border);  /* 边框 */
+  border-radius: 10px;  /* 圆角 */
+  padding: 16px;  /* 内边距 */
+  min-height: 120px;  /* 最小高度，避免空白时太矮 */
 }
-pre {
-  white-space: pre-wrap;
-  word-break: break-word;
-  background: #f0f1f4;
-  padding: 12px;
-  border-radius: 6px;
-  font-size: 13px;
+pre {  /* 输出原文展示 */
+  white-space: pre-wrap;  /* 保留空格换行，超宽自动折行 */
+  word-break: break-word;  /* 长单词强制换行 */
+  background: #f0f1f4;  /* 浅灰底 */
+  padding: 12px;  /* 内边距 */
+  border-radius: 6px;  /* 圆角 */
+  font-size: 13px;  /* 字号 */
 }
-.status-banner { padding: 8px 12px; border-radius: 6px; }
-.status-banner.ok { background: #e6f4ea; color: var(--ok); }
-.status-banner.warn { background: #fff4e5; color: var(--warn); }
-.status-banner.error { background: #fdecec; color: var(--danger); }
+.status-banner { padding: 8px 12px; border-radius: 6px; }  /* 状态横幅基础样式 */
+.status-banner.ok { background: #e6f4ea; color: var(--ok); }  /* 成功：浅绿底绿字 */
+.status-banner.warn { background: #fff4e5; color: var(--warn); }  /* 部分成功：浅橙底橙字 */
+.status-banner.error { background: #fdecec; color: var(--danger); }  /* 失败：浅红底红字 */
 
-table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); }
-th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 14px; }
-th { color: var(--muted); font-weight: 600; }
+table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); }  /* 表格全宽、边框合并、白底 */
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 14px; }  /* 单元格左对齐、内边距、下边框 */
+th { color: var(--muted); font-weight: 600; }  /* 表头灰色加粗 */
 
-.device-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.device-form.inline { display: flex; flex-wrap: wrap; gap: 8px; }
-.device-form input, .device-form select {
-  padding: 8px 10px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+.device-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }  /* 设备表单弹性布局、可换行、垂直居中 */
+.device-form.inline { display: flex; flex-wrap: wrap; gap: 8px; }  /* 内联编辑表单（更小间距） */
+.device-form input, .device-form select {  /* 设备表单输入控件 */
+  padding: 8px 10px;  /* 内边距 */
+  border: 1px solid var(--border);  /* 边框 */
+  border-radius: 6px;  /* 圆角 */
 }
-.checkbox { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; }
+.checkbox { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; }  /* 勾选框行内布局 */
 
-.status { padding: 2px 8px; border-radius: 12px; font-size: 12px; }
-.status-success { background: #e6f4ea; color: var(--ok); }
-.status-partial { background: #fff4e5; color: var(--warn); }
-.status-failed { background: #fdecec; color: var(--danger); }
-.status-running { background: #eaf1fe; color: var(--primary); }
+.status { padding: 2px 8px; border-radius: 12px; font-size: 12px; }  /* 状态小圆标基础样式 */
+.status-success { background: #e6f4ea; color: var(--ok); }  /* 成功状态标 */
+.status-partial { background: #fff4e5; color: var(--warn); }  /* 部分成功状态标 */
+.status-failed { background: #fdecec; color: var(--danger); }  /* 失败状态标 */
+.status-running { background: #eaf1fe; color: var(--primary); }  /* 执行中状态标 */
 
-details summary { cursor: pointer; color: var(--primary); margin-bottom: 8px; }
-details .device-form { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
-td form { display: inline-block; margin-right: 6px; }
+details summary { cursor: pointer; color: var(--primary); margin-bottom: 8px; }  /* “编辑”摘要：手型、蓝字 */
+details .device-form { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }  /* 展开后的编辑表单：上虚线分隔 */
+td form { display: inline-block; margin-right: 6px; }  /* 单元格内表单行内排列 */

@@ -1,23 +1,23 @@
-<!doctype html>
-<html lang="zh-CN">
+<!doctype html>  <!-- 声明 HTML5 文档类型 -->
+<html lang="zh-CN">  <!-- 页面语言：简体中文 -->
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}网络自动化运维工具{% endblock %}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="utf-8">  <!-- 字符编码 UTF-8，正确显示中文 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- 移动端视口设置 -->
+  <title>{% block title %}网络自动化运维工具{% endblock %}</title>  <!-- 标题块，子模板可覆盖 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">  <!-- 引入静态 CSS -->
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">🛠️ 网络自动化运维工具</div>
-    <nav>
-      <a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' }}">控制台</a>
-      <a href="{{ url_for('devices_page') }}" class="{{ 'active' if request.endpoint == 'devices_page' }}">设备管理</a>
-      <a href="{{ url_for('tasks_page') }}" class="{{ 'active' if request.endpoint == 'tasks_page' }}">任务历史</a>
+  <header class="topbar">  <!-- 顶部导航条 -->
+    <div class="brand">🛠️ 网络自动化运维工具</div>  <!-- 左侧品牌名 -->
+    <nav>  <!-- 右侧导航 -->
+      <a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' }}">控制台</a>  <!-- 首页链接，当前页高亮 -->
+      <a href="{{ url_for('devices_page') }}" class="{{ 'active' if request.endpoint == 'devices_page' }}">设备管理</a>  <!-- 设备管理链接 -->
+      <a href="{{ url_for('tasks_page') }}" class="{{ 'active' if request.endpoint == 'tasks_page' }}">任务历史</a>  <!-- 任务历史链接 -->
     </nav>
   </header>
-  <main class="container">
-    {% block content %}{% endblock %}
+  <main class="container">  <!-- 内容主体 -->
+    {% block content %}{% endblock %}  <!-- 内容块，由子模板填充 -->
   </main>
-  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>  <!-- 底部引入 JS -->
 </body>
 </html>

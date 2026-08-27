@@ -5,7 +5,11 @@
       "Bash(git push *)",
       "Bash(git check-ignore *)",
       "Bash(env)",
-      "Bash(git ls-remote *)"
+      "Bash(git ls-remote *)",
+      "Bash(python -m py_compile config.py models.py init_db.py app.py netmiko_utils.py)",
+      "Bash(py --version)",
+      "Bash(py -m py_compile config.py models.py init_db.py app.py netmiko_utils.py)",
+      "Bash(node --check static/app.js)"
     ],
     "additionalDirectories": [
       "C:\\Users\\温宪染\\Desktop"

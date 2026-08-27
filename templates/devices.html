@@ -1,62 +1,62 @@
-{% extends "base.html" %}
-{% block title %}设备管理{% endblock %}
-{% block content %}
+{% extends "base.html" %}  <!-- 继承基础模板 -->
+{% block title %}设备管理{% endblock %}  <!-- 覆盖标题为“设备管理” -->
+{% block content %}  <!-- 填充内容块 -->
 <h1>设备管理</h1>
 
-<section class="card">
-  <h2>新增设备</h2>
-  <form method="post" action="{{ url_for('device_create') }}" class="device-form">
-    <input name="name" placeholder="设备名 (如 SW-01)" required>
-    <input name="ip_address" placeholder="管理 IP (如 192.168.1.1)" required>
-    <input name="username" placeholder="用户名" value="admin">
-    <input name="password" placeholder="密码" value="Admin@123">
-    <select name="device_type">
-      <option value="huawei_vrp">华为 VRP</option>
-      <option value="cisco_ios">Cisco IOS</option>
+<section class="card">  <!-- 新增设备卡片 -->
+  <h2>新增设备</h2>  <!-- 卡片标题 -->
+  <form method="post" action="{{ url_for('device_create') }}" class="device-form">  <!-- 提交到 device_create 路由（POST） -->
+    <input name="name" placeholder="设备名 (如 SW-01)" required>  <!-- 设备名输入框，required 必填 -->
+    <input name="ip_address" placeholder="管理 IP (如 192.168.1.1)" required>  <!-- 管理 IP 输入框，必填 -->
+    <input name="username" placeholder="用户名" value="admin">  <!-- 用户名输入框，默认 admin -->
+    <input name="password" placeholder="密码" value="Admin@123">  <!-- 密码输入框，默认 Admin@123 -->
+    <select name="device_type">  <!-- 厂商类型下拉框 -->
+      <option value="huawei_vrp">华为 VRP</option>  <!-- 华为选项 -->
+      <option value="cisco_ios">Cisco IOS</option>  <!-- 思科选项 -->
     </select>
-    <label class="checkbox"><input type="checkbox" name="enabled" checked> 启用</label>
-    <button class="btn primary" type="submit">添加</button>
+    <label class="checkbox"><input type="checkbox" name="enabled" checked> 启用</label>  <!-- “启用”勾选框，默认勾选 -->
+    <button class="btn primary" type="submit">添加</button>  <!-- 添加按钮 -->
   </form>
 </section>
 
-<section class="card">
-  <h2>设备列表</h2>
-  <table>
-    <thead>
-      <tr><th>名称</th><th>IP</th><th>用户名</th><th>类型</th><th>状态</th><th>操作</th></tr>
+<section class="card">  <!-- 设备列表卡片 -->
+  <h2>设备列表</h2>  <!-- 卡片标题 -->
+  <table>  <!-- 设备清单表 -->
+    <thead>  <!-- 表头 -->
+      <tr><th>名称</th><th>IP</th><th>用户名</th><th>类型</th><th>状态</th><th>操作</th></tr>  <!-- 列标题 -->
     </thead>
-    <tbody>
-    {% for d in devices %}
-    <tr>
-      <td>{{ d.name }}</td>
-      <td>{{ d.ip_address }}</td>
-      <td>{{ d.username }}</td>
-      <td>{{ d.device_type }}</td>
-      <td>{{ '启用' if d.enabled else '停用' }}</td>
-      <td>
-        <details>
-          <summary>编辑</summary>
-          <form method="post" action="{{ url_for('device_update', device_id=d.id) }}" class="device-form inline">
-            <input name="name" value="{{ d.name }}" required>
-            <input name="ip_address" value="{{ d.ip_address }}" required>
-            <input name="username" value="{{ d.username }}">
-            <input name="password" placeholder="留空则不修改密码">
-            <select name="device_type">
-              <option value="huawei_vrp" {{ 'selected' if d.device_type == 'huawei_vrp' }}>华为 VRP</option>
-              <option value="cisco_ios" {{ 'selected' if d.device_type == 'cisco_ios' }}>Cisco IOS</option>
+    <tbody>  <!-- 表体 -->
+    {% for d in devices %}  <!-- 遍历设备列表 -->
+    <tr>  <!-- 一行一台设备 -->
+      <td>{{ d.name }}</td>  <!-- 设备名 -->
+      <td>{{ d.ip_address }}</td>  <!-- 管理 IP -->
+      <td>{{ d.username }}</td>  <!-- 用户名 -->
+      <td>{{ d.device_type }}</td>  <!-- 设备类型 -->
+      <td>{{ '启用' if d.enabled else '停用' }}</td>  <!-- 布尔转中文 -->
+      <td>  <!-- 操作列 -->
+        <details>  <!-- 可展开的编辑区 -->
+          <summary>编辑</summary>  <!-- 点击展开编辑表单 -->
+          <form method="post" action="{{ url_for('device_update', device_id=d.id) }}" class="device-form inline">  <!-- 提交到更新路由 -->
+            <input name="name" value="{{ d.name }}" required>  <!-- 设备名，预填当前值 -->
+            <input name="ip_address" value="{{ d.ip_address }}" required>  <!-- IP，预填 -->
+            <input name="username" value="{{ d.username }}">  <!-- 用户名，预填 -->
+            <input name="password" placeholder="留空则不修改密码">  <!-- 密码留空则不改 -->
+            <select name="device_type">  <!-- 类型下拉 -->
+              <option value="huawei_vrp" {{ 'selected' if d.device_type == 'huawei_vrp' }}>华为 VRP</option>  <!-- 当前类型则选中 -->
+              <option value="cisco_ios" {{ 'selected' if d.device_type == 'cisco_ios' }}>Cisco IOS</option>  <!-- 当前类型则选中 -->
             </select>
-            <label class="checkbox"><input type="checkbox" name="enabled" {{ 'checked' if d.enabled }}> 启用</label>
-            <button class="btn" type="submit">保存</button>
+            <label class="checkbox"><input type="checkbox" name="enabled" {{ 'checked' if d.enabled }}> 启用</label>  <!-- 当前已启用则勾选 -->
+            <button class="btn" type="submit">保存</button>  <!-- 保存按钮 -->
           </form>
         </details>
         <form method="post" action="{{ url_for('device_delete', device_id=d.id) }}"
-              onsubmit="return confirm('确认删除该设备？')">
-          <button class="btn danger" type="submit">删除</button>
+              onsubmit="return confirm('确认删除该设备？')">  <!-- 删除表单：提交到删除路由，删除前弹确认框 -->
+          <button class="btn danger" type="submit">删除</button>  <!-- 删除按钮 -->
         </form>
       </td>
     </tr>
-    {% else %}
-    <tr><td colspan="6" class="muted">暂无设备，请先添加。</td></tr>
+    {% else %}  <!-- 无设备时的空态 -->
+    <tr><td colspan="6" class="muted">暂无设备，请先添加。</td></tr>  <!-- 空态提示，横跨 6 列 -->
     {% endfor %}
     </tbody>
   </table>
