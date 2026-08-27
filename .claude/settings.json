@@ -6,6 +6,9 @@
       "Bash(git check-ignore *)",
       "Bash(env)",
       "Bash(git ls-remote *)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\温宪染\\Desktop"
     ]
   }
 }
